@@ -1,0 +1,41 @@
+{
+    "name": "JhiAuthorityPermissionResource",
+    "fields": [
+        {
+            "fieldName": "authority",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "permission",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "resource",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "jhiPermission",
+            "otherEntityName": "jhiPermission",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "jhiResource",
+            "otherEntityName": "jhiResource",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180822142717",
+    "entityTableName": "jhi_authority_permission_resource",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}
