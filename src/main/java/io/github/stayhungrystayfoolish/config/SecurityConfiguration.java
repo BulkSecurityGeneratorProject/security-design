@@ -24,6 +24,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -85,13 +86,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-            .exceptionHandling()
-            .authenticationEntryPoint(problemSupport)
-            .accessDeniedHandler(problemSupport)
-        .and()
+            .headers()
+            .frameOptions()
+            .disable()
+            .and()
             .csrf()
             .disable()
+            /*
+            .csrf()
+            .ignoringAntMatchers("/h2-console/**")
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        .and()
+            .addFilterBefore(corsFilter, CsrfFilter.class)
             .headers()
             .frameOptions()
             .disable()
@@ -99,6 +105,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
+        */
+            .exceptionHandling()
+            .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+            .and()
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()

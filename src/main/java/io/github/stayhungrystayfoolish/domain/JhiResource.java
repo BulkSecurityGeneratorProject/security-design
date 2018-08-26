@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "jhi_resource")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class JhiResource implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,8 +28,8 @@ public class JhiResource implements Serializable {
     @Column(name = "resource_name")
     private String resourceName;
 
-    @OneToMany(mappedBy = "jhiResource")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "jhiResource", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<JhiAuthPermRes> resources = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

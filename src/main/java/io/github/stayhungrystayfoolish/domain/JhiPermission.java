@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "jhi_permission")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class JhiPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,8 +28,8 @@ public class JhiPermission implements Serializable {
     @Column(name = "permission_name")
     private String permissionName;
 
-    @OneToMany(mappedBy = "jhiPermission")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "jhiPermission", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<JhiAuthPermRes> permissions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -41,21 +41,21 @@ public class JhiPermission implements Serializable {
         this.id = id;
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public String getPermissionName() {
         return permissionName;
-    }
-
-    public JhiPermission permissionName(String permissionName) {
-        this.permissionName = permissionName;
-        return this;
     }
 
     public void setPermissionName(String permissionName) {
         this.permissionName = permissionName;
     }
 
-    public Set<JhiAuthPermRes> getPermissions() {
-        return permissions;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public JhiPermission permissionName(String permissionName) {
+        this.permissionName = permissionName;
+        return this;
     }
 
     public JhiPermission permissions(Set<JhiAuthPermRes> jhiAuthPermRes) {
@@ -75,9 +75,15 @@ public class JhiPermission implements Serializable {
         return this;
     }
 
+    public Set<JhiAuthPermRes> getPermissions() {
+        return permissions;
+    }
+
     public void setPermissions(Set<JhiAuthPermRes> jhiAuthPermRes) {
         this.permissions = jhiAuthPermRes;
     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

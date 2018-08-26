@@ -7,7 +7,7 @@
         Added the constraints for entity JhiAuthPermRes.
     -->
     <changeSet id="20180822142857-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="jhi_permission_id"
                                  baseTableName="jhi_auth_perm_res"
                                  constraintName="fk_jhi_auth_perm_res_jhi_permission_id"
@@ -19,6 +19,11 @@
                                  constraintName="fk_jhi_auth_perm_res_jhi_resource_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_resource"/>
+        <addForeignKeyConstraint baseColumnNames="jhi_authority_name"
+                                 baseTableName="jhi_auth_perm_res"
+                                 constraintName="fk_jhi_auth_perm_res_jhi_authority_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="jhi_authority"/>
 
     </changeSet>
 </databaseChangeLog>

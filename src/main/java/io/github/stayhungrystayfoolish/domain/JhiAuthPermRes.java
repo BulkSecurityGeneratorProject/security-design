@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "jhi_auth_perm_res")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class JhiAuthPermRes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +40,43 @@ public class JhiAuthPermRes implements Serializable {
     @JsonIgnoreProperties("resources")
     private JhiResource jhiResource;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @ManyToOne
+    @JsonIgnoreProperties("authorities")
+    private Authority jhiAuthority;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public JhiAuthPermRes authorityName(String authorityName) {
+        this.authorityName = authorityName;
+        return this;
+    }
+
+    public JhiAuthPermRes jhiAuthority(Authority jhiAuthority) {
+        this.jhiAuthority = jhiAuthority;
+        return this;
+    }
+
+    public void setJhiAuthority(Authority jhiAuthority) {
+        this.jhiAuthority = jhiAuthority;
+    }
+
+    public Authority getJhiAuthority() {
+        return jhiAuthority;
+    }
+
+    public void setAuthority(String authorityName) {
+        this.authorityName = authorityName;
+    }
+
+    public String getAuthorityName() {
+        return authorityName;
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -49,47 +86,11 @@ public class JhiAuthPermRes implements Serializable {
         this.id = id;
     }
 
-    public String getAuthorityName() {
-        return authorityName;
-    }
-
-    public JhiAuthPermRes authorityName(String authorityName) {
-        this.authorityName = authorityName;
-        return this;
-    }
-
-    public void setAuthorityName(String authorityName) {
-        this.authorityName = authorityName;
-    }
-
-    public String getPermissionName() {
-        return permissionName;
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public JhiAuthPermRes permissionName(String permissionName) {
         this.permissionName = permissionName;
         return this;
-    }
-
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName;
-    }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public JhiAuthPermRes resourceName(String resourceName) {
-        this.resourceName = resourceName;
-        return this;
-    }
-
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
-    public JhiPermission getJhiPermission() {
-        return jhiPermission;
     }
 
     public JhiAuthPermRes jhiPermission(JhiPermission jhiPermission) {
@@ -101,8 +102,24 @@ public class JhiAuthPermRes implements Serializable {
         this.jhiPermission = jhiPermission;
     }
 
-    public JhiResource getJhiResource() {
-        return jhiResource;
+
+    public JhiPermission getJhiPermission() {
+        return jhiPermission;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
+
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public JhiAuthPermRes resourceName(String resourceName) {
+        this.resourceName = resourceName;
+        return this;
     }
 
     public JhiAuthPermRes jhiResource(JhiResource jhiResource) {
@@ -113,6 +130,19 @@ public class JhiAuthPermRes implements Serializable {
     public void setJhiResource(JhiResource jhiResource) {
         this.jhiResource = jhiResource;
     }
+
+    public JhiResource getJhiResource() {
+        return jhiResource;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
